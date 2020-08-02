@@ -1,0 +1,37 @@
+{% load static %}
+{% if request.user.is_authenticated %}
+    
+
+    <h1>loged in user {{request.user.username}}</h1>
+    <img src="{{request.user.profile.image.url}}" style="height:100px; border-radius:50%;" />
+
+
+
+<h1>Profile List</h1>
+    {% for profile in profile_list %}
+        <h3>{{profile.user.username}}</h3>
+
+        {% if profile.user.email %}
+            <h4>{{profile.user.email}}</h4>
+        {% endif %}
+        {% if profile.image %}
+        <img src="{{profile.image.url}}" style="height:100px;" />
+        {% endif %}
+        {% if profile.user.is_teacher %}
+        <h4> this is Teacher</h4>
+        {% else %}
+        <h4> this is Student</h4>
+        {% endif %}
+        <br />
+
+    {% endfor %}
+
+{% else %}
+<h1>School</h1>
+
+<h3><a href="{% url 'teacher_signup' %}">Teacher Signup</h3>
+<h3><a href="{% url 'student_signup' %}">Student Signup</h3>
+<br />
+<h3><a href="{% url 'login' %}">Login</h3>
+
+{% endif %}
